@@ -1,0 +1,161 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>СОГАЗ — тренажёр страховых решений</title><style>
+:root{
+  --brand:#0d0b7d;--brand2:#2421a8;--accent:#5d6de8;--bg:#f5f7fb;--panel:#fff;
+  --ink:#171a2b;--muted:#677089;--line:#dfe4ef;--dark:#10113a;--shadow:0 22px 65px rgba(21,24,92,.15)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:linear-gradient(180deg,#f8f9fd,#f1f4fa 55%,#f9fafe);color:var(--ink);font:16px/1.56 Arial,Helvetica,sans-serif}
+a{color:inherit}
+.layout{display:grid;grid-template-columns:300px minmax(0,1fr);min-height:100vh}
+.sidebar{position:sticky;top:0;height:100vh;padding:22px 18px;background:linear-gradient(180deg,#0d0b4f,#0b0a3c);color:#fff;border-right:1px solid rgba(255,255,255,.08);z-index:20}
+.brandbox{background:#fff;border-radius:22px;padding:14px 16px;box-shadow:0 18px 45px rgba(0,0,0,.15)}
+.brandbox img{display:block;width:160px;max-width:100%;height:auto}
+.kicker{margin-top:18px;color:#b9c2ff;font-size:12px;text-transform:uppercase;letter-spacing:.17em;font-weight:800}
+.course-title{font-size:20px;font-weight:800;margin:4px 0 16px}
+.nav{display:grid;gap:8px;margin-top:18px}
+.nav a{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:center;text-decoration:none;padding:10px;border-radius:14px;color:#dedff7}
+.nav a:hover,.nav a.active{background:rgba(255,255,255,.1);color:white}
+.nav i{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#28247f;font-style:normal;font-weight:800}
+.profile{margin-top:18px;padding:14px;border:1px solid rgba(255,255,255,.14);border-radius:16px;background:rgba(255,255,255,.05)}
+.profile input{width:100%;margin-top:8px;padding:10px 11px;background:#090830;color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:10px}
+.profile-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+button,.btn{appearance:none;border:0;border-radius:12px;padding:11px 14px;background:linear-gradient(135deg,var(--brand2),#4a55da);color:#fff;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;justify-content:center;align-items:center}
+button.secondary,.btn.secondary{background:#2d2c67}
+.progress{height:7px;background:#26245f;border-radius:999px;overflow:hidden;margin-top:10px}
+.progress>span{display:block;height:100%;background:linear-gradient(90deg,#6f7ff2,#afb7ff);width:0}
+.main{min-width:0}
+.topbar{position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:14px 28px;background:rgba(248,249,253,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.page-switch{display:flex;gap:8px;flex-wrap:wrap}.page-switch a{font-size:13px;text-decoration:none;padding:8px 10px;border:1px solid var(--line);border-radius:999px;background:#fff}
+.content{max-width:1180px;margin:auto;padding:40px 34px 90px}
+.hero{position:relative;overflow:hidden;border-radius:30px;padding:52px;min-height:420px;background:linear-gradient(135deg,#0f0d80 0%,#1e1a9f 50%,#080740 100%);color:#fff;box-shadow:var(--shadow)}
+.hero:before{content:"";position:absolute;right:-150px;top:-180px;width:580px;height:580px;border-radius:50%;border:1px solid rgba(255,255,255,.13);box-shadow:0 0 0 75px rgba(255,255,255,.025),0 0 0 150px rgba(93,109,232,.05)}
+.hero:after{content:"";position:absolute;left:-70px;bottom:-120px;width:520px;height:270px;background:linear-gradient(18deg,transparent 37%,rgba(126,139,255,.42) 38% 52%,transparent 53%);transform:rotate(-4deg)}
+.hero>*{position:relative;z-index:2}
+.eyebrow{display:inline-flex;padding:7px 10px;border:1px solid rgba(255,255,255,.22);border-radius:999px;color:#e8e9ff;font-size:12px;text-transform:uppercase;letter-spacing:.14em}
+h1{font-size:clamp(40px,6vw,76px);line-height:.98;max-width:850px;margin:22px 0 18px;letter-spacing:-.045em}
+.lead{font-size:19px;color:#e1e3ff;max-width:810px}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:18px 0 34px}
+.stat{padding:22px;border-radius:20px;border:1px solid var(--line);background:#fff}
+.stat strong{display:block;font-size:28px;color:var(--brand)}.stat span{color:var(--muted);font-size:14px}
+.section{padding:42px 0;border-bottom:1px solid var(--line)}
+.section h2{font-size:clamp(28px,4vw,46px);margin:0 0 14px;letter-spacing:-.03em}
+.section-intro{max-width:860px;color:#5f687e;margin-bottom:24px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.card{min-width:0;padding:22px;border:1px solid var(--line);border-radius:20px;background:#fff}
+.card h3{margin:0 0 8px;font-size:19px}.card p{margin:0;color:#626c83}
+.tag,.badge{display:inline-block;margin-bottom:12px;padding:6px 9px;border-radius:999px;background:#eceeff;color:#3738a1;font-size:12px}
+.timeline{display:grid;gap:12px}
+.step{display:grid;grid-template-columns:50px minmax(0,1fr);gap:14px;align-items:start;padding:18px;border:1px solid var(--line);border-radius:18px;background:#fff}
+.step b{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--brand);color:#fff}
+.step p{margin:4px 0 0;color:#657088}
+.callout{padding:24px;border-left:4px solid var(--brand2);background:#efefff;border-radius:0 18px 18px 0}
+.rolegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.role{padding:24px;border-radius:22px;background:linear-gradient(145deg,#111066,#0c0b46);color:#fff}
+.role h3{font-size:22px;margin:0 0 8px}.role ul{padding-left:20px;color:#e0e2fb}
+.trainer{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.question,.result{padding:26px;border-radius:22px;border:1px solid var(--line);background:#fff}
+.options{display:grid;gap:10px;margin-top:16px}
+.option{display:block;width:100%;text-align:left;background:#25238f}.option:hover{background:#3736b4}
+.footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:#747d91;font-size:13px;padding-top:28px}
+@media(max-width:980px){
+ .layout{grid-template-columns:1fr}.sidebar{position:relative;height:auto}.nav{grid-template-columns:repeat(3,1fr)}
+ .content{padding:26px 20px 70px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stats{grid-template-columns:1fr 1fr}.hero{padding:36px}
+}
+@media(max-width:620px){
+ .sidebar{padding:16px}.nav{grid-template-columns:1fr 1fr}.nav a{grid-template-columns:30px 1fr;font-size:13px}
+ .topbar{padding:11px 14px}.crumb{display:none}.content{padding:18px 14px 55px}.hero{padding:26px 20px;min-height:360px}
+ h1{font-size:42px}.lead{font-size:16px}.stats,.grid,.rolegrid,.trainer{grid-template-columns:1fr}.profile-actions{grid-template-columns:1fr}.section{padding:32px 0}
+}
+</style></head><body><div class="layout"><aside class="sidebar">
+<div class="brandbox"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJgAAABTCAYAAABj7c5WAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAunSURBVHhe7dtbUBRXHgbwL8mqITEioqBy0UIwCkhAIUrALAREvIEswlqASmIUs6S8VDS1q6kCUiabBAo0ZaFAvCwJxI0BvKAxCCtRUEEuQgAvGMrIHRQViESylvuwzIQ5093TPTPHysP/VzUPfj1Dw/hN9zmne5558uTJExDCybNsQIgxUcEIV1QwwhUVjHBFBSNcUcEIV1QwwhUVjHBFBSNcUcEIV1QwwhUVjHBFBSNcUcEIV1QwwhUVjHBFBSNcUcEIV1QwwhUVjHBFBSNcUcEIV1QwwhUVjHBFBSNcPWPoN7urqlpRVPQTTp26juLiJnVuazsWM2ZMwMyZFrCzGwc7u3FYunSGxmv19fPP93D+/C0cP34V1693o7OzH52d/Zg8eQwmTXoJc+faYNGilzF//lSYmj7PvlzQ8N/dED4+dmykpa6uE99++yMbIzzcBY6OFup/6/qd5OwLAH766S5qaztw+XIL2tv70NbWi7Fjn4et7VhYWY3B5MljYGc3Du7u1uxLDaZ3wVpaHmD37lJ8/vkFDA4+ZjcL8vS0RWysJyIjXdlNslRWtiI9vRzp6eXsJkGWlqOxapUbVq2aDReXiexmDcXFTfD1zWBjRXx87HD27Do2VsvJqUNi4jmUlTWzm9SCgmYiKsoNYWGzEB9fiISEIvYpAIC4OD/Ex/uzsYbk5BLk5dWjpOQWu0lQVJQb1qyZDX9/e3aT3vQqWHFxE9auzUFTUw+7SZaAAAe8+64nli2byW4SlZR0Htu2nWJj2dLSQrB+/atsrMa7YBs25CEtTd4HAwAiI11hb2+ud8Hc3D7HlSvtbCxLZKQrvvrqr2ysF8VjsOrqNvj6ZuhdLgAoKGhEZOS/0dDQxW4SFB9faFC5ACAmJg+FhTfZ+KmYNi1RUbkAICvrChvJ0tHRB1PTeL3LhaF9HzhQwcZ6UVSwe/cG4O29j4310tf3CLGxx/D4sfQBtKjopuinWKkFC/bLLrWxeHvv0/vDqPTvfvTov1iy5F/o7X3EblJs27ZTqKnRv6Qqigq2bl0uHj78jY21zJo1EebmL7CxluLiJmzefIKN1erqOrFy5WE2NkhwcOZTK9mOHQUoLf2ZjblJSSlFVVUrG6u5uU1GRIQr4uL8EBfnh+joORg3zoR9GgCgp2cAJ09eY2PFZI/Bvv66BhER4v/Z3t5TER09B35+0zB1qhkA4OLF2zhy5EdkZ19BZ2c/+xK1S5f+hrlzbdgYa9YcQWZmFRur+fvbw8FhPGbMmAAXl4more3AtWvdaGy8I3k63LjxNezevUwjkxqDyZ2tAVCPwSorW+HuvofdrCEgwAEuLhPh5TUFbW19uHKlDRUVraiubmOfqkVoDObomIKrV4U/PHFxfnj//T/jhRdGaORlZc3w9c3AwID2gcPPzx6FhWvZWBHZBZs3L1V09vPOO3ORkrIUo0b9id0EAGho6EJ4eDbq6zvZTYDIm3X69A0sWnRQIxtu//5QvPWWOxur7dpVgi1bTrIxAMDMzAQ1NZtgY2OqznQVTGzwLiYmJk9ytrtvXwhiYrQnHf39g3jvvZOSr4XAe9bTMwBz8w81nqMSEeGKrCzxQbuvb4boksiTJ/9kI0VknSILChpFyxUa6ozU1OWi5QIAR0cLZGaGsbHa6dM32AiHDlWykVp39weS5QKAzZu9cflyLKysxrCbcO/eAI4c0V6HMpbBwceC61wqx46tFiwXAIwePRJpaSEIC5vFbpJUVnabjdS8vaewkSxOTpZspJisgp0508hGaps2ebGRoNmzrbB2rTt8fOy0HiYmIzQKPDj4GEePNmi8XiUlZSnGj3+RjQW5u1tj40bh3y8vr56NjObMmUb09AywMQDg7bc9EBSke3nmm28iYGk5mo1FlZU1q8dW8fH+Gg/VkEVIZWUrKiqEx22enrZspJisU6SX1z5cuKA9WA0JcUJubhQbG6ygoBELFx5gYwQGTsd3373JxpIGBn7DvHl7UVurPSN69GgnRo58DjDyKXLHjgJ8/PFZNsaECS+iq+sDNhYltfbHniJ1KS5u0joNVle34fjxqxrZcCdPRmPx4pfZWBFZRzCxAbqu1XF9ie1v+3ZfNtLJxGQEVq50YWNAYj+GEvu5Sk85xn5/ExKKNB5S5Tp4cIXB5YKhBVP6hskltr9Jk15iI1kmThR+ndh+DNXR0cdGwNBYVIlXXpnERtxNnz4e2dkrER09h92kF1kF+6MQK4ouEybIG7MR4MaNO0hPL0d+vuFrYJBbMLHBptiyg6HE9peUdA7d3b+wsaSGhi7k5NSxMSCxH0OJfRCULvAaYyV9uOETKw8Pa9G/v7i4CRERh0UH/0oYVLDa2g42kqQaaIo9VMT2l5BQBAuLnYiNPSa4MDhcVVUrwsOz4eSUIrrkIbYfQ4n9XKUfSKXvrxTVREX1KC+PRUfHDtTXb2GfCgxdyvvwQ2WXqoTIKthrrwlPV/Py6nHwoPB/npDdu0vh65uh9QgKyoSNzVj183x87CTX1VJTL2HZsky0tvaymwAAhYU3ERz8peRal7f3VPUM0tjE3q/u7l+wbl0uG4tKSjrHRqLY93T4o6tL/Kjv6GiBuDg/NgYAnDhxFQUF4ktUcsgq2IIFDmyktmVLPhsJunHjjtY0WcXDwxrTpo1T/3vkyOewfLmjxnNYRUU3sXjxIbS3aw6o8/OvYcmSQ2hpeaCRs0JCnNjIaBYscBC9xvfFF5clZ28q4eHZiiYhrq6TtM4Iqsft2/fZp2uQuhR2/Xo3Gykiq2ABAQ6C1woB4MGDX+Huvkd05qQSE5OH+/d/ZWNgqGAsObOY2tp2pKWVaWTp6eU6b4A0MzNRvFKuxMiRz2HFCvGfHxycKXr7Tn//IGJi8iSPvkKkZpxZWdVspEHq2qeJiea1S6VkFQw6VuwrK1vh6JiCXbtKNQayFy/exvbt32PmzGTRoxcAuLtbsRECA6dj9erZbKwlI+Oy+iiWn38NJ07oPjqsWuWmcR2SB6mbGzF0A+LChQewbdspHD1aj9TUS1i/Phevv56m8zqkEFdX8YLt2lWKmzfvsjEwVK6dO//Dxmqvvqr94VdC1kq+yooVWaIzsuGcnCzR0dGHu3cfspu0SF2IravrhK9vBu7cER9DYNiqdlBQps6C2dub49ix1VprUsVGXMlXEVvRNwahlfzAwIP4/nvt67oqw+/euH//V9y6dQ+JiedEb8GytjZFc/Pf2VgR2UcwAMjI+IvW7R5C6us7ZZXLxsYUn34ayMZqzs6WOHx4JRtruXDh/xd6L14Uv+CrIlQuXj76KABeXvpdaNZHcvISyfvwCgoakZR0HiEhX+HNN79FQkKRaLkwdOu0oRQVzMzMBCUlG9hYb3v2BMPaWvpU5ednLzrLUSktvYXm5gc6j3Rnzqx9auVSKSnZIHhHhxy6/m6Wo6MF9u5dzsZ6CQ11xiefiH/45VJUMAzdFXn27DrY2f0+61NqzhwrpKWFyLqrAADi4/2RmLiYjdUePvxN8GL8cGlpIUb9towSLS3/UDxr1XU7kpiwsFnYu3c5nJ31v4zn4WFttKIqLhiGxiQ//LAeW7fOV7SWpCpWRcW7OgfBrK1b50u+TqhglpajsXXrfNTUbBJ93dOSmxuFL78MF52Nq1hbmyI5eQn27w9lN8m2YcNclJXF4rPPFsHW9vf1RV1CQ52RkxOF8vJYo11eUzTIF/JH+eKtjc1YtLX1cvvirdRakVKqL962t/ehvb0PI0Y8C3t7c7zxxjR4ek7BmDGjACP9Tp2d/bh06TY6OvrR3t6LlpYHaGnphanpKOaLt+aCs3lDGVwwQqTodYokRC4qGOGKCka4ooIRrqhghCsqGOGKCka4ooIRrqhghCsqGOGKCka4ooIRrqhghCsqGOGKCka4ooIRrqhghCsqGOGKCka4ooIRrqhghCsqGOGKCka4ooIRrqhghCsqGOGKCka4ooIRrqhghCsqGOHqf3VQa9D3udjMAAAAAElFTkSuQmCC" alt="СОГАЗ"></div>
+<div class="kicker">Знания · ответственность · развитие</div>
+<div class="course-title">СОГАЗ · система обучения</div>
+<nav class="nav"><a href="index.html" class=""><i>1</i><span>Система обучения</span></a><a href="02_roli_v_sisteme_obucheniya_sogaz.html" class=""><i>2</i><span>Роли и развитие</span></a><a href="03_trenazher_strahovyh_resheniy_sogaz.html" class="active"><i>3</i><span>Тренажёр решений</span></a></nav>
+<div class="profile">
+<strong id="profileLabel">Профиль обучения</strong>
+<div style="color:#c6c9ea;font-size:13px;margin-top:4px">Имя необязательно — весь курс доступен без входа.</div>
+<input id="nameInput" placeholder="Ваше имя (необязательно)">
+<div class="profile-actions"><button onclick="saveName()">Сохранить</button><button class="secondary" onclick="skipName()">Без входа</button></div>
+<div class="progress"><span id="progressBar"></span></div>
+</div>
+<div style="margin-top:16px;font-size:12px;color:#b5b7dd">GitHub: <a href="https://github.com/ybxjnxfjvc-byte/index34" target="_blank" rel="noopener">index34</a></div>
+</aside><main class="main"><header class="topbar"><div class="crumb">СОГАЗ / Практический тренажёр</div>
+<div class="page-switch"><a href="index.html">01</a><a href="02_roli_v_sisteme_obucheniya_sogaz.html">02</a><a href="03_trenazher_strahovyh_resheniy_sogaz.html">03</a></div></header>
+<div class="content">
+<section class="hero">
+<span class="eyebrow">Страница 03 · тренажёр</span>
+<h1>Подбери страховое решение</h1>
+<p class="lead">Клиент приходит с жизненной ситуацией, а не названием полиса. В тренажёре нужно выбрать основной контур защиты и увидеть, какие дополнительные вопросы или продукты стоит обсудить.</p>
+<div class="hero-actions"><button onclick="nextCase()">Начать тренажёр</button><a class="btn secondary" href="index.html">Вернуться к системе</a></div>
+</section>
+
+<section class="section"><h2>Практика по продуктам СОГАЗ</h2>
+<p class="section-intro">Сценарии опираются на направления официального сайта: ДМС, страхование путешествий, ОСАГО, каско, имущество, ипотека и другие программы. Конкретные тарифы и цены намеренно не зашиты: они могут меняться, поэтому сотрудник учится определять потребность и проверять актуальные условия перед оформлением.</p>
+
+<div class="trainer">
+<div class="question"><span class="badge" id="caseNo">Ситуация</span><h3 id="qTitle">Нажмите «Начать тренажёр»</h3><p id="qText">Появится клиентский запрос.</p><div class="options" id="options"></div></div>
+<div class="result"><span class="badge">Разбор</span><h3 id="rTitle">Здесь появится обратная связь</h3><p id="rText">После выбора вы увидите основной продуктовый контур и связанные вопросы.</p><div id="score" style="margin-top:18px;color:#6f7890"></div></div>
+</div></section>
+
+<section class="section"><h2>Карта решений</h2><div class="grid">
+<div class="card"><span class="tag">Здоровье</span><h3>ДМС</h3><p>Медицинская помощь по программе страхования: клиники-партнёры, консультации, исследования и другие услуги в рамках условий.</p></div>
+<div class="card"><span class="tag">Путешествия</span><h3>Страхование поездок</h3><p>Медицинские и иные предусмотренные программой расходы во время поездки.</p></div>
+<div class="card"><span class="tag">Автомобиль</span><h3>ОСАГО и каско</h3><p>Обязательная ответственность владельца и добровольная защита самого автомобиля.</p></div>
+<div class="card"><span class="tag">Имущество</span><h3>Квартира и дом</h3><p>Защита недвижимости, отделки, имущества и ответственности — в зависимости от выбранной программы.</p></div>
+<div class="card"><span class="tag">Ипотека</span><h3>Страхование ипотечных рисков</h3><p>Защита объекта и других предусмотренных рисков в рамках требований кредитной организации и договора.</p></div>
+<div class="card"><span class="tag">Сервис</span><h3>Обращение при событии</h3><p>Правильный канал, документы, сроки и понятное сопровождение клиента на этапе урегулирования.</p></div>
+</div></section>
+
+<section class="section"><div class="callout"><strong>Правило консультанта:</strong> сначала понять, какой риск хочет снизить клиент и что для него критично; затем — объяснить покрытие и ограничения; после этого — переходить к конкретной программе и актуальным условиям.</div></section>
+
+<script>
+const cases=[
+ {t:'Регулярная частная медицина',q:'Клиент хочет обращаться в клиники и получать консультации и исследования по страховой программе. Какой контур основной?',a:'ДМС',x:['ДМС','ОСАГО','Каско','Страхование путешествий'],e:'Основной контур — ДМС. Нужно уточнить состав программы, список доступных медицинских организаций, правила записи и ограничения покрытия.'},
+ {t:'Семья едет за границу',q:'Нужно снизить риск неожиданных медицинских расходов в поездке.',a:'Страхование путешествий',x:['Страхование путешествий','Каско','Страхование квартиры','ОСАГО'],e:'Основной продукт — страхование путешественников. Перед оформлением уточняют страну, даты, состав путешественников и планируемые активности.'},
+ {t:'Новая машина',q:'Клиент спрашивает, какая защита обязательна, а какая может покрывать ущерб самому автомобилю.',a:'ОСАГО + каско',x:['ОСАГО + каско','ДМС','Страхование квартиры','Страхование путешествий'],e:'ОСАГО покрывает ответственность владельца перед третьими лицами в рамках закона, а каско — добровольная защита самого автомобиля по условиям договора. Эти продукты важно не смешивать.'},
+ {t:'Квартира после ремонта',q:'Клиент хочет защитить отделку и имущество от бытовых происшествий.',a:'Страхование имущества',x:['Страхование имущества','ОСАГО','ДМС','Каско'],e:'Основной контур — страхование имущества. Следует уточнить, что именно нужно защитить: конструктив, отделку, движимое имущество и ответственность перед соседями.'},
+ {t:'Ипотечная сделка',q:'Банк требует страховую защиту при оформлении ипотеки.',a:'Ипотечное страхование',x:['Ипотечное страхование','Путешествия','ОСАГО','ДМС'],e:'Основной контур — ипотечное страхование. Состав рисков зависит от требований банка и выбранной программы, поэтому условия нужно проверять перед оформлением.'},
+ {t:'Произошло страховое событие',q:'Клиент уже застрахован и спрашивает, что делать дальше. Какой первый шаг?',a:'Урегулирование события',x:['Продать новый полис','Урегулирование события','Сделать рекламное предложение','Сразу закрыть обращение'],e:'Первый шаг — определить тип события, договор и корректный канал урегулирования, затем объяснить клиенту порядок действий и документы.'},
+ {t:'Сотрудники компании часто ездят в командировки',q:'Организация хочет снизить риски, связанные со здоровьем сотрудников во время поездок.',a:'Корпоративная страховая программа',x:['Корпоративная страховая программа','Только ОСАГО','Каско для всех сотрудников','Страхование квартиры'],e:'Здесь нужен корпоративный контур: уточнить географию, частоту поездок, численность и риски. После диагностики подключается профильный менеджер и подбирается программа.'}
+];
+let idx=-1,scoreN=0,answered=0;
+function nextCase(){
+ idx=(idx+1)%cases.length;const c=cases[idx];
+ document.getElementById('caseNo').textContent='Ситуация '+(idx+1)+' из '+cases.length;
+ document.getElementById('qTitle').textContent=c.t;document.getElementById('qText').textContent=c.q;
+ document.getElementById('rTitle').textContent='Выберите вариант';document.getElementById('rText').textContent='После ответа появится разбор.';
+ const o=document.getElementById('options');o.innerHTML='';
+ c.x.forEach(v=>{const b=document.createElement('button');b.className='option';b.textContent=v;b.onclick=()=>answer(v);o.appendChild(b)});
+ document.getElementById('score').textContent='Результат: '+scoreN+' / '+answered;
+}
+function answer(v){
+ const c=cases[idx];answered++;const ok=v===c.a;if(ok)scoreN++;
+ document.getElementById('rTitle').textContent=ok?'Верно':'Основной контур: '+c.a;
+ document.getElementById('rText').textContent=c.e;
+ document.getElementById('score').textContent='Результат: '+scoreN+' / '+answered;
+ state.trainer=scoreN;save();
+}
+</script>
+<footer class="footer"><span>Кейс 34 · Страховая Группа «СОГАЗ»</span>
+<span><a href="https://github.com/ybxjnxfjvc-byte/index34" target="_blank" rel="noopener">GitHub index34</a> · <a href="https://ybxjnxfjvc-byte.github.io/index34/" target="_blank" rel="noopener">GitHub Pages</a></span></footer></div>
+</main></div>
+<script>
+const KEY='sogaz_index34_state_v1';
+let state={name:'',guest:false,visited:{},trainer:0};
+try{state=Object.assign(state,JSON.parse(localStorage.getItem(KEY)||'{}'))}catch(e){}
+function save(){localStorage.setItem(KEY,JSON.stringify(state));renderProfile()}
+function renderProfile(){
+ const n=document.getElementById('nameInput'),l=document.getElementById('profileLabel'),b=document.getElementById('progressBar');
+ if(n&&state.name)n.value=state.name;
+ if(l)l.textContent=state.name?state.name:(state.guest?'Гость':'Профиль обучения');
+ if(b)b.style.width=Math.min(100,Object.keys(state.visited||{}).length/3*100)+'%';
+}
+function saveName(){const n=document.getElementById('nameInput');state.name=(n?.value||'').trim();state.guest=false;save()}
+function skipName(){state.name='';state.guest=true;save()}
+function markPage(id){state.visited=state.visited||{};state.visited[id]=true;save()}
+document.addEventListener('DOMContentLoaded',renderProfile);
+</script>
+<script>markPage('p3')</script></body></html>
